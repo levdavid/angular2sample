@@ -1,0 +1,31 @@
+<div class="artistsearch">
+  <div class="card search">
+    <h1>Artist search</h1>
+    <!-- old version<label *ngIf="name">name: {{name}}</label> -->
+    <!-- newer way of doing fancy stuff -->
+    <label *ngIf="name" [innerHTML]="'name: '+ name"></label>
+    <!-- [value] will give a default value-->
+    <!-- event handling -->    
+  
+   <!--  [value]="name"
+      (input)="name=$event.target.value" -->
+    <label> search <span *ngIf="query"> for: {{query}}</span></label>
+    <input [(ngModel)]="query" placeholder="type in search item">
+
+<!-- we use ngModel for working with checkbox, radiobutton, etc. -->
+    <label>Add row</label>
+    <input #newArtist 
+  
+      [(ngModel)]="name"
+      (keyup.enter)="addArtist(newArtist.value); newArtist.value=''"
+      (blur) = "addArtist(newArtist.value); newArtist.value=''"
+    >
+      <button class="btn" (click)="addArtist(newArtist.value)">Add</button>
+  </div> 
+</div>
+
+<ul class="artistlist cf">
+  <li class="artist cf" #list (click)="onClick(item, list)" *ngFor="#item of artists">
+  	<artist-item class="content" [artist]=item></artist-item>
+  </li>
+</ul>
